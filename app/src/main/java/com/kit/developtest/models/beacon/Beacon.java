@@ -21,6 +21,19 @@ public class Beacon implements IValid, Comparable {
   int major = 0;
   int minor = 0;
 
+  @Override
+  public String toString() {
+    return String.format("UUID:%s, MAJOR:%d, MINOR:%d", uuid, major, minor);
+  }
+
+  public Beacon(String uuid) {
+    this(uuid, 0, 0);
+  }
+
+  public Beacon(String uuid, int major) {
+    this(uuid, major, 0);
+  }
+
   public Beacon(String uuid, int major, int minor) {
     setUuid(uuid);
     setMajor(major);
@@ -85,6 +98,8 @@ public class Beacon implements IValid, Comparable {
       if (rtv != 0) {
         return (rtv > 0) ? 1 : -1;
       }
+      // 모두 같음.
+      return 0;
     }
     throw new InvalidParameterException("another is not Beacon class.");
   }
