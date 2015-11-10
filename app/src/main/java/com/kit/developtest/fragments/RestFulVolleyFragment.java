@@ -13,11 +13,9 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.kit.developtest.R;
 import com.navercorp.volleyextensions.volleyer.Volleyer;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 /**
@@ -32,6 +30,8 @@ public class RestFulVolleyFragment extends Fragment {
   private OnFragmentInteractionListener mListener;
   private EditText txtRestUrl = null;
   private TextView tvResponse = null;
+  private Gson gson = new Gson();
+
 
   /**
    * Use this factory method to create a new instance of
@@ -55,8 +55,7 @@ public class RestFulVolleyFragment extends Fragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_rest_ful_volley, container, false);
 
@@ -87,8 +86,7 @@ public class RestFulVolleyFragment extends Fragment {
     try {
       mListener = (OnFragmentInteractionListener) activity;
     } catch (ClassCastException e) {
-      throw new ClassCastException(activity.toString()
-          + " must implement OnFragmentInteractionListener");
+      throw new ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener");
     }
   }
 
@@ -124,15 +122,8 @@ public class RestFulVolleyFragment extends Fragment {
   private Response.Listener<String> listener = new Response.Listener<String>() {
     @Override
     public void onResponse(String response) {
-      try {
-        JSONObject json = new JSONObject(response);
-        String origin = json.getString("origin");
-        String url = json.getString("url");
-        String message = String.format("%s\n-->\norigin:%s\nurl:%s", response, origin, url);
-        tvResponse.setText(message);
-      } catch (JSONException e) {
-        e.printStackTrace();
-      }
+      String message = String.format("%s", response);
+      tvResponse.setText(message);
     }
   };
 

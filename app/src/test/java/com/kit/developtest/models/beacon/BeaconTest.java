@@ -16,11 +16,9 @@ import static org.junit.Assert.assertTrue;
  * Created by kit on 15. 11. 10..
  */
 public class BeaconTest {
-  private static final String TAG = BeaconTest.class.getSimpleName();
-
-  static final String UUID_ERR = "97009700-9700-9700-9700-970097009701";
-  static final String UUID = "97009700-9700-9700-9700-970097009700";
-  static final int MAJOR = 861;
+  public static final String UUID_ERR = "97009700-9700-9700-9700-970097009701";
+  public static final String UUID = "97009700-9700-9700-9700-970097009700";
+  public static final int MAJOR = 861;
 
   Beacon beacon1 = null;
   Beacon beacon2 = null;

@@ -9,11 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kit.developtest.R;
 import com.kit.developtest.models.beacon.Beacon;
+import com.kit.developtest.models.beacon.BeaconEvent;
 import com.kit.developtest.services.BeaconIntentService;
+import com.kit.developtest.thirdparties.otto.BusProvider;
 import com.kit.developtest.thirdparties.reco.BeaconRecoSdkService;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +32,11 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class BeaconFragment extends Fragment {
+  private final Gson gson = new Gson();
   private List<Beacon> beaconList = null;
   private OnFragmentInteractionListener mListener;
   private RadioGroup rgroup = null;
+  private TextView tvBeaconResult = null;
 
   /**
    * Use this factory method to create a new instance of
@@ -49,14 +56,16 @@ public class BeaconFragment extends Fragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    // Register ourselves so that we can provide the initial value.
+    BusProvider.getInstance().register(this);
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_beacon, container, false);
     rgroup = (RadioGroup) view.findViewById(R.id.rgrpBeaconGroup);
+    tvBeaconResult = (TextView) view.findViewById(R.id.tvBeaconResult);
     Button btnProcess = (Button) view.findViewById(R.id.btnProcess);
     btnProcess.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -81,7 +90,7 @@ public class BeaconFragment extends Fragment {
     int id = rgroup.getCheckedRadioButtonId();
     if (started == false) {
       startup(id);
-    } else  {
+    } else {
       shutdown(id);
     }
   }
@@ -117,9 +126,15 @@ public class BeaconFragment extends Fragment {
     try {
       mListener = (OnFragmentInteractionListener) activity;
     } catch (ClassCastException e) {
-      throw new ClassCastException(activity.toString()
-          + " must implement OnFragmentInteractionListener");
+      throw new ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener");
     }
+  }
+
+  @Override
+  public void onDestroy() {
+    // Always unregister when an object no longer should be on the bus.
+    BusProvider.getInstance().unregister(this);
+    super.onDestroy();
   }
 
   @Override
@@ -128,12 +143,18 @@ public class BeaconFragment extends Fragment {
     mListener = null;
   }
 
+  @Subscribe
+  public void FinishLoad(BeaconEvent beaconEvent) {
+    // 이벤트가 발생한뒤 수행할 작업
+    tvBeaconResult.append(gson.toJson(beaconEvent) + "\n");
+  }
+
   /**
    * This interface must be implemented by activities that contain this
    * fragment to allow an interaction in this fragment to be communicated
    * to the activity and potentially other fragments contained in that
    * activity.
-   * <p>
+   * <p/>
    * See the Android Training lesson <a href=
    * "http://developer.android.com/training/basics/fragments/communicating.html"
    * >Communicating with Other Fragments</a> for more information.
