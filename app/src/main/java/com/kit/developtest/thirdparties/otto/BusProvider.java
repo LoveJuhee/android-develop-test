@@ -1,7 +1,6 @@
 package com.kit.developtest.thirdparties.otto;
 
 import com.squareup.otto.Bus;
-import com.squareup.otto.ThreadEnforcer;
 
 /**
  * Created by kit on 15. 11. 11..

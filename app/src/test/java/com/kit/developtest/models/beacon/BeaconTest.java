@@ -1,7 +1,5 @@
 package com.kit.developtest.models.beacon;
 
-import com.kit.developtest.BuildConfig;
-
 import org.junit.Before;
 import org.junit.Test;
 

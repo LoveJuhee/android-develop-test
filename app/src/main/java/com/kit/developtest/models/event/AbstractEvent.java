@@ -1,6 +1,7 @@
 package com.kit.developtest.models.event;
 
 import com.google.gson.Gson;
+
 import com.kit.developtest.utils.GsonUtil;
 
 import kr.lj1212.utils.ObjectUtil;

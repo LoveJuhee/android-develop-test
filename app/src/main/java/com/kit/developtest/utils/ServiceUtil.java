@@ -60,10 +60,6 @@ public class ServiceUtil {
 
   /**
    * 서비스 구동중인지 확인.
-   *
-   * @param serviceClass
-   * @param manager
-   * @return
    */
   private static boolean isServiceRunning(Class<?> serviceClass, ActivityManager manager) {
     for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {

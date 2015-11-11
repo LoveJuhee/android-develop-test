@@ -1,5 +1,7 @@
 package com.kit.developtest.fragments;
 
+import com.google.gson.Gson;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.net.Uri;
@@ -14,18 +16,15 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.kit.developtest.R;
 import com.navercorp.volleyextensions.volleyer.Volleyer;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RestFulVolleyFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RestFulVolleyFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
+ * {@link RestFulVolleyFragment.OnFragmentInteractionListener} interface to handle interaction
+ * events. Use the {@link RestFulVolleyFragment#newInstance} factory method to create an instance of
+ * this fragment.
  */
 public class RestFulVolleyFragment extends Fragment {
   private OnFragmentInteractionListener mListener;
@@ -35,8 +34,8 @@ public class RestFulVolleyFragment extends Fragment {
 
 
   /**
-   * Use this factory method to create a new instance of
-   * this fragment using the provided parameters.
+   * Use this factory method to create a new instance of this fragment using the provided
+   * parameters.
    *
    * @return A new instance of fragment RestFulVolleyFragment.
    */
@@ -99,14 +98,11 @@ public class RestFulVolleyFragment extends Fragment {
   }
 
   /**
-   * This interface must be implemented by activities that contain this
-   * fragment to allow an interaction in this fragment to be communicated
-   * to the activity and potentially other fragments contained in that
-   * activity.
-   * <p/>
-   * See the Android Training lesson <a href=
-   * "http://developer.android.com/training/basics/fragments/communicating.html"
-   * >Communicating with Other Fragments</a> for more information.
+   * This interface must be implemented by activities that contain this fragment to allow an
+   * interaction in this fragment to be communicated to the activity and potentially other fragments
+   * contained in that activity. <p/> See the Android Training lesson <a href=
+   * "http://developer.android.com/training/basics/fragments/communicating.html" >Communicating with
+   * Other Fragments</a> for more information.
    */
   public interface OnFragmentInteractionListener {
     // TODO: Update argument type and name

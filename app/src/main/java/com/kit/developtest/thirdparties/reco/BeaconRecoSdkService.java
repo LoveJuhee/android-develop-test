@@ -23,11 +23,9 @@ import java.util.List;
 
 
 /**
- * BeaconRecoSdkService is to monitor regions and range regions when the device is inside in
- * the BACKGROUND.
- * <p>
- * RECOBackgroundMonitoringService는 백그라운드에서 monitoring을 수행하며, 특정 region 내부로 진입한 경우 백그라운드 상태에서
- * ranging을 수행합니다.
+ * BeaconRecoSdkService is to monitor regions and range regions when the device is inside in the
+ * BACKGROUND. <p> RECOBackgroundMonitoringService는 백그라운드에서 monitoring을 수행하며, 특정 region 내부로 진입한 경우
+ * 백그라운드 상태에서 ranging을 수행합니다.
  */
 public class BeaconRecoSdkService extends Service implements RECOMonitoringListener, RECORangingListener, RECOServiceConnectListener {
 
@@ -38,52 +36,39 @@ public class BeaconRecoSdkService extends Service implements RECOMonitoringListe
 
   /**
    * We recommend 1 second for scanning, 10 seconds interval between scanning, and 60 seconds for
-   * region expiration time.
-   * 1초 스캔, 10초 간격으로 스캔, 60초의 region expiration time은 당사 권장사항입니다.
+   * region expiration time. 1초 스캔, 10초 간격으로 스캔, 60초의 region expiration time은 당사 권장사항입니다.
    */
   private long scanDuration = 1 * 1000L;
   private long sleepDuration = 5 * 1000L;
   private long regionExpirationTime = 30 * 1000L;
 
   /**
-   * SCAN_RECO_ONLY:
-   * <p>
-   * If true, the application scans RECO beacons only, otherwise it scans all beacons.
-   * It will be used when the instance of RECOBeaconManager is created.
-   * <p>
-   * true일 경우 레코 비콘만 스캔하며, false일 경우 모든 비콘을 스캔합니다.
-   * RECOBeaconManager 객체 생성 시 사용합니다.
+   * SCAN_RECO_ONLY: <p> If true, the application scans RECO beacons only, otherwise it scans all
+   * beacons. It will be used when the instance of RECOBeaconManager is created. <p> true일 경우 레코 비콘만
+   * 스캔하며, false일 경우 모든 비콘을 스캔합니다. RECOBeaconManager 객체 생성 시 사용합니다.
    */
   private static final boolean SCAN_RECO_ONLY = true;
 
   /**
-   * ENABLE_BACKGROUND_RANGING_TIMEOUT:
-   * <p>
-   * If true, the application stops to range beacons in the entered region automatically in 10
-   * seconds (background),
-   * otherwise it continues to range beacons. (It affects the battery consumption.)
-   * It will be used when the instance of RECOBeaconManager is created.
-   * <p>
-   * 백그라운드 ranging timeout을 설정합니다.
-   * true일 경우, 백그라운드에서 입장한 region에서 ranging이 실행 되었을 때, 10초 후 자동으로 정지합니다.
-   * false일 경우, 계속 ranging을 실행합니다. (배터리 소모율에 영향을 끼칩니다.)
+   * ENABLE_BACKGROUND_RANGING_TIMEOUT: <p> If true, the application stops to range beacons in the
+   * entered region automatically in 10 seconds (background), otherwise it continues to range
+   * beacons. (It affects the battery consumption.) It will be used when the instance of
+   * RECOBeaconManager is created. <p> 백그라운드 ranging timeout을 설정합니다. true일 경우, 백그라운드에서 입장한 region에서
+   * ranging이 실행 되었을 때, 10초 후 자동으로 정지합니다. false일 경우, 계속 ranging을 실행합니다. (배터리 소모율에 영향을 끼칩니다.)
    * RECOBeaconManager 객체 생성 시 사용합니다.
    */
   private static final boolean ENABLE_BACKGROUND_RANGING_TIMEOUT = true;
 
   /**
-   * DISCONTINUOUS_SCAN:
-   * <p>
-   * There is a known android bug that some android devices scan BLE devices only once.
-   * (link: http://code.google.com/p/android/issues/detail?id=65863)
-   * To resolve the bug in our SDK, you can use setDiscontinuousScan() method of the RECOBeaconManager.
-   * This method is to set whether the device scans BLE devices continuously or discontinuously.
-   * The default is set as FALSE. Please set TRUE only for specific devices.
-   * <p>
-   * 일부 안드로이드 기기에서 BLE 장치들을 스캔할 때, 한 번만 스캔 후 스캔하지 않는 버그(참고: http://code.google.com/p/android/issues/detail?id=65863)가 있습니다.
-   * 해당 버그를 SDK에서 해결하기 위해, RECOBeaconManager에 setDiscontinuousScan() 메소드를 이용할 수 있습니다.
-   * 해당 메소드는 기기에서 BLE 장치들을 스캔할 때(즉, ranging 시에), 연속적으로 계속 스캔할 것인지, 불연속적으로 스캔할 것인지 설정하는 것입니다.
-   * 기본 값은 FALSE로 설정되어 있으며, 특정 장치에 대해 TRUE로 설정하시길 권장합니다.
+   * DISCONTINUOUS_SCAN: <p> There is a known android bug that some android devices scan BLE devices
+   * only once. (link: http://code.google.com/p/android/issues/detail?id=65863) To resolve the bug
+   * in our SDK, you can use setDiscontinuousScan() method of the RECOBeaconManager. This method is
+   * to set whether the device scans BLE devices continuously or discontinuously. The default is set
+   * as FALSE. Please set TRUE only for specific devices. <p> 일부 안드로이드 기기에서 BLE 장치들을 스캔할 때, 한 번만 스캔
+   * 후 스캔하지 않는 버그(참고: http://code.google.com/p/android/issues/detail?id=65863)가 있습니다. 해당 버그를 SDK에서
+   * 해결하기 위해, RECOBeaconManager에 setDiscontinuousScan() 메소드를 이용할 수 있습니다. 해당 메소드는 기기에서 BLE 장치들을 스캔할
+   * 때(즉, ranging 시에), 연속적으로 계속 스캔할 것인지, 불연속적으로 스캔할 것인지 설정하는 것입니다. 기본 값은 FALSE로 설정되어 있으며, 특정 장치에 대해
+   * TRUE로 설정하시길 권장합니다.
    */
   public static final boolean DISCONTINUOUS_SCAN = true;//false;
 
@@ -335,7 +320,7 @@ public class BeaconRecoSdkService extends Service implements RECOMonitoringListe
     sendMessage("didRangeBeaconsInRegion() - " + region.getUniqueIdentifier() + " with " + beacons.size() + " beacons");
     // Write the code when the beacons inside of the region is received
     List<Beacon> beaconList = new ArrayList<>();
-    for(RECOBeacon recoBeacon : beacons) {
+    for (RECOBeacon recoBeacon : beacons) {
       beaconList.add(RECOUtil.toBeacon(recoBeacon));
     }
     BeaconIntentService.eventBeaconRegionsOn(beaconList);

@@ -3,33 +3,33 @@
 
   <group android:checkableBehavior="single">
     <item
-      android:id="@+id/nav_rest_ful_volley"
-      android:icon="@android:drawable/ic_menu_camera"
-      android:title="RestFul (Volley)"/>
+        android:id="@+id/nav_rest_ful_volley"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="RestFul (Volley)"/>
     <item
-      android:id="@+id/nav_beacon_reco"
-      android:icon="@android:drawable/ic_menu_gallery"
-      android:title="Beacon (Reco)"/>
+        android:id="@+id/nav_beacon_reco"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:title="Beacon (Reco)"/>
     <item
-      android:id="@+id/nav_slideshow"
-      android:icon="@android:drawable/ic_menu_slideshow"
-      android:title="Slideshow"/>
+        android:id="@+id/nav_butter_knife"
+        android:icon="@android:drawable/ic_menu_slideshow"
+        android:title="ButterKnife"/>
     <item
-      android:id="@+id/nav_manage"
-      android:icon="@android:drawable/ic_menu_manage"
-      android:title="Tools"/>
+        android:id="@+id/nav_manage"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Tools"/>
   </group>
 
   <item android:title="Communicate">
     <menu>
       <item
-        android:id="@+id/nav_share"
-        android:icon="@android:drawable/ic_menu_share"
-        android:title="Share"/>
+          android:id="@+id/nav_share"
+          android:icon="@android:drawable/ic_menu_share"
+          android:title="Share"/>
       <item
-        android:id="@+id/nav_send"
-        android:icon="@android:drawable/ic_menu_send"
-        android:title="Send"/>
+          android:id="@+id/nav_send"
+          android:icon="@android:drawable/ic_menu_send"
+          android:title="Send"/>
     </menu>
   </item>
 

@@ -55,9 +55,6 @@ public class RECOUtil {
 
   /**
    * RECOBeaconRegion json으로 변환.
-   *
-   * @param region
-   * @return
    */
   public static JSONObject toJSONObject(RECOBeaconRegion region) {
     JSONObject json = new JSONObject();
@@ -76,9 +73,6 @@ public class RECOUtil {
 
   /**
    * RECOBeacon json으로 변환.
-   *
-   * @param beacon
-   * @return
    */
   public static JSONObject toJSONObject(RECOBeacon beacon) {
     JSONObject json = new JSONObject();

@@ -20,11 +20,13 @@ import com.android.volley.RequestQueue;
 import com.kit.developtest.fragments.BeaconFragment;
 import com.kit.developtest.fragments.RestFulVolleyFragment;
 import com.kit.developtest.fragments.RestFulVolleyFragment.OnFragmentInteractionListener;
+import com.kit.developtest.fragments.thridparty.ButterKnifeFragment;
 import com.navercorp.volleyextensions.volleyer.Volleyer;
 import com.navercorp.volleyextensions.volleyer.factory.DefaultRequestQueueFactory;
 
 public class MainActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener, BeaconFragment.OnFragmentInteractionListener {
+    implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener, BeaconFragment
+    .OnFragmentInteractionListener, ButterKnifeFragment.OnFragmentInteractionListener {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +105,8 @@ public class MainActivity extends AppCompatActivity
       fragment = (Fragment) RestFulVolleyFragment.newInstance();
     } else if (id == R.id.nav_beacon_reco) {
       fragment = (Fragment) BeaconFragment.newInstance();
-    } else if (id == R.id.nav_slideshow) {
-
+    } else if (id == R.id.nav_butter_knife) {
+      fragment = (Fragment) ButterKnifeFragment.newInstance();
     } else if (id == R.id.nav_manage) {
 
     } else if (id == R.id.nav_share) {

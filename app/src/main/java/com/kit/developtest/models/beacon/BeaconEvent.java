@@ -2,7 +2,6 @@ package com.kit.developtest.models.beacon;
 
 import com.kit.developtest.models.event.AbstractEvent;
 import com.kit.developtest.models.event.EventType;
-import com.kit.developtest.utils.GsonUtil;
 
 /**
  * Created by kit on 15. 11. 11..

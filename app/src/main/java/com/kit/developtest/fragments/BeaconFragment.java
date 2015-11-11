@@ -1,19 +1,19 @@
 package com.kit.developtest.fragments;
 
+import com.google.gson.Gson;
+
 import android.app.Activity;
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.kit.developtest.R;
 import com.kit.developtest.models.beacon.Beacon;
 import com.kit.developtest.models.beacon.BeaconEvent;
@@ -27,12 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link BeaconFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link BeaconFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
+ * {@link BeaconFragment.OnFragmentInteractionListener} interface to handle interaction events. Use
+ * the {@link BeaconFragment#newInstance} factory method to create an instance of this fragment.
  */
 public class BeaconFragment extends Fragment {
   private final Gson gson = new Gson();
@@ -42,8 +39,8 @@ public class BeaconFragment extends Fragment {
   private TextView tvBeaconResult = null;
 
   /**
-   * Use this factory method to create a new instance of
-   * this fragment using the provided parameters.
+   * Use this factory method to create a new instance of this fragment using the provided
+   * parameters.
    *
    * @return A new instance of fragment BeaconFragment.
    */
@@ -158,14 +155,11 @@ public class BeaconFragment extends Fragment {
   }
 
   /**
-   * This interface must be implemented by activities that contain this
-   * fragment to allow an interaction in this fragment to be communicated
-   * to the activity and potentially other fragments contained in that
-   * activity.
-   * <p/>
-   * See the Android Training lesson <a href=
-   * "http://developer.android.com/training/basics/fragments/communicating.html"
-   * >Communicating with Other Fragments</a> for more information.
+   * This interface must be implemented by activities that contain this fragment to allow an
+   * interaction in this fragment to be communicated to the activity and potentially other fragments
+   * contained in that activity. <p/> See the Android Training lesson <a href=
+   * "http://developer.android.com/training/basics/fragments/communicating.html" >Communicating with
+   * Other Fragments</a> for more information.
    */
   public interface OnFragmentInteractionListener {
     // TODO: Update argument type and name

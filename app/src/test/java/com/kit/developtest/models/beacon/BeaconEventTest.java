@@ -1,6 +1,7 @@
 package com.kit.developtest.models.beacon;
 
 import com.google.gson.Gson;
+
 import com.kit.developtest.models.event.EventType;
 
 import org.junit.Before;

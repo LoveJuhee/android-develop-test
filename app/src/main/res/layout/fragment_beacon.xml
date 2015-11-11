@@ -5,55 +5,55 @@
              tools:context="com.kit.developtest.fragments.BeaconFragment">
 
   <LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:orientation="vertical">
 
     <RadioGroup
-      android:id="@+id/rgrpBeaconGroup"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content">
+        android:id="@+id/rgrpBeaconGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
       <RadioButton
-        android:id="@+id/rbtnReco"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="Reco"/>
+          android:id="@+id/rbtnReco"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:checked="true"
+          android:text="Reco"/>
     </RadioGroup>
 
     <TextView
-      android:id="@+id/tvBeaconResult"
-      android:layout_width="fill_parent"
-      android:layout_height="0dp"
-      android:layout_margin="10dp"
-      android:layout_weight="1"
-      android:editable="false"
-      android:hint="beacon signal test"
-      android:scrollbars="vertical"
-      />
+        android:id="@+id/tvBeaconResult"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:editable="false"
+        android:hint="beacon signal test"
+        android:scrollbars="vertical"
+        />
 
     <LinearLayout
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
       <Button
-        android:id="@+id/btnServiceStart"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
-        android:padding="20dp"
-        android:text="Start"/>
+          android:id="@+id/btnServiceStart"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          android:layout_weight="1"
+          android:padding="20dp"
+          android:text="Start"/>
 
       <Button
-        android:id="@+id/btnServiceStop"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
-        android:padding="20dp"
-        android:text="Stop"/>
+          android:id="@+id/btnServiceStop"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          android:layout_weight="1"
+          android:padding="20dp"
+          android:text="Stop"/>
 
     </LinearLayout>
 

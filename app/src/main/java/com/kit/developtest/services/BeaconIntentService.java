@@ -15,10 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p/>
- * helper methods.
+ * An {@link IntentService} subclass for handling asynchronous task requests in a service on a
+ * separate handler thread. <p/> helper methods.
  */
 public class BeaconIntentService extends IntentService {
   private static final String TAG = BeaconIntentService.class.getSimpleName();

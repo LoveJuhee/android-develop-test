@@ -1,6 +1,7 @@
 package com.kit.developtest.thirdparties.otto;
 
 import com.google.gson.Gson;
+
 import com.kit.developtest.models.beacon.Beacon;
 import com.kit.developtest.models.beacon.BeaconEvent;
 import com.kit.developtest.models.beacon.BeaconTest;
