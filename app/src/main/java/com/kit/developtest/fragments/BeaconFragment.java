@@ -97,6 +97,8 @@ public class BeaconFragment extends Fragment {
     switch (id) {
       case R.id.rbtnReco:
         break;
+      default:
+        break;
     }
     BeaconIntentService.stopBeaconService(getActivity());
   }
@@ -106,6 +108,8 @@ public class BeaconFragment extends Fragment {
     switch (id) {
       case R.id.rbtnReco:
         BeaconIntentService.setBeaconServiceClass(BeaconRecoSdkService.class);
+        break;
+      default:
         break;
     }
     BeaconIntentService.addMonitoringBeacons(beaconList);
