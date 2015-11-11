@@ -3,20 +3,17 @@ package com.kit.developtest.fragments.thridparty;
 import android.app.Activity;
 import android.app.Fragment;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.kit.developtest.R;
 import com.kit.developtest.utils.ComponentUtil;
-import com.kit.developtest.utils.ToastUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,7 +58,7 @@ public class ButterKnifeFragment extends Fragment {
     tvResponse.append("\n");
   }
 
-  @OnCheckedChanged({R.id.rbtn1, R.id.rbtn2,R.id.rbtn3,R.id.rbtn4})
+  @OnCheckedChanged({R.id.rbtn1, R.id.rbtn2, R.id.rbtn3, R.id.rbtn4})
   void rbtnOnCheckedChanged(RadioButton rbtn) {
     if (rbtn.isChecked() == false) {
       return;
@@ -105,7 +102,9 @@ public class ButterKnifeFragment extends Fragment {
     super.onDestroyView();
   }
 
-  // TODO: Rename method, update argument and hook method into UI event
+  /**
+   * TODO: Rename method, update argument and hook method into UI event
+   */
   public void onButtonPressed(Uri uri) {
     if (mListener != null) {
       mListener.onFragmentInteraction(uri);
