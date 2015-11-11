@@ -4,15 +4,12 @@ import com.google.gson.Gson;
 import com.kit.developtest.models.beacon.Beacon;
 import com.kit.developtest.models.beacon.BeaconEvent;
 import com.kit.developtest.models.beacon.BeaconTest;
+import com.kit.developtest.models.event.EventType;
 import com.squareup.otto.Subscribe;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Objects;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by kit on 15. 11. 11..
@@ -32,12 +29,12 @@ public class BusProviderTest {
 
   @Test
   public void pushBeaconEventInfo() {
-    BusProvider.getInstance().post(new BeaconEvent("info", "info message"));
+    BusProvider.getInstance().post(new BeaconEvent(BusProviderTest.class, EventType.info, "info message"));
   }
 
   @Test
   public void pushBeaconEventOn() {
-    BusProvider.getInstance().post(new BeaconEvent("on", "on message", new Beacon(BeaconTest.UUID)));
+    BusProvider.getInstance().post(new BeaconEvent(BusProviderTest.class, EventType.on, "on message", new Beacon(BeaconTest.UUID)));
   }
 
   @Subscribe

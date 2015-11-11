@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import com.google.gson.Gson;
 import com.kit.developtest.R;
 import com.kit.developtest.models.beacon.Beacon;
 import com.kit.developtest.models.beacon.BeaconEvent;
+import com.kit.developtest.models.service.ServiceEvent;
 import com.kit.developtest.services.BeaconIntentService;
 import com.kit.developtest.thirdparties.otto.BusProvider;
 import com.kit.developtest.thirdparties.reco.BeaconRecoSdkService;
@@ -66,11 +69,19 @@ public class BeaconFragment extends Fragment {
     View view = inflater.inflate(R.layout.fragment_beacon, container, false);
     rgroup = (RadioGroup) view.findViewById(R.id.rgrpBeaconGroup);
     tvBeaconResult = (TextView) view.findViewById(R.id.tvBeaconResult);
-    Button btnProcess = (Button) view.findViewById(R.id.btnProcess);
-    btnProcess.setOnClickListener(new View.OnClickListener() {
+    tvBeaconResult.setMovementMethod(new ScrollingMovementMethod());
+    Button btnServiceStart = (Button) view.findViewById(R.id.btnServiceStart);
+    btnServiceStart.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        process();
+        startup();
+      }
+    });
+    Button btnServiceStop = (Button) view.findViewById(R.id.btnServiceStop);
+    btnServiceStop.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        shutdown();
       }
     });
 
@@ -84,18 +95,8 @@ public class BeaconFragment extends Fragment {
     return view;
   }
 
-  boolean started = false;
-
-  private void process() {
+  private void shutdown() {
     int id = rgroup.getCheckedRadioButtonId();
-    if (started == false) {
-      startup(id);
-    } else {
-      shutdown(id);
-    }
-  }
-
-  private void shutdown(int id) {
     switch (id) {
       case R.id.rbtnReco:
         break;
@@ -103,7 +104,8 @@ public class BeaconFragment extends Fragment {
     BeaconIntentService.stopBeaconService(getActivity());
   }
 
-  private void startup(int id) {
+  private void startup() {
+    int id = rgroup.getCheckedRadioButtonId();
     switch (id) {
       case R.id.rbtnReco:
         BeaconIntentService.setBeaconServiceClass(BeaconRecoSdkService.class);
@@ -144,9 +146,15 @@ public class BeaconFragment extends Fragment {
   }
 
   @Subscribe
-  public void FinishLoad(BeaconEvent beaconEvent) {
+  public void onBeaconEvent(BeaconEvent beaconEvent) {
     // 이벤트가 발생한뒤 수행할 작업
-    tvBeaconResult.append(gson.toJson(beaconEvent) + "\n");
+    tvBeaconResult.append(beaconEvent.print() + "\n");
+  }
+
+  @Subscribe
+  public void onServiceEvent(ServiceEvent serviceEvent) {
+    // 이벤트가 발생한뒤 수행할 작업
+    tvBeaconResult.append(serviceEvent.print() + "\n");
   }
 
   /**

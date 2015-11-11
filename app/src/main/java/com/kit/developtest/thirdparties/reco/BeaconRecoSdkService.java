@@ -17,10 +17,6 @@ import com.perples.recosdk.RECOMonitoringListener;
 import com.perples.recosdk.RECORangingListener;
 import com.perples.recosdk.RECOServiceConnectListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -101,7 +97,7 @@ public class BeaconRecoSdkService extends Service implements RECOMonitoringListe
   }
 
   private void sendMessage(String message) {
-    BeaconIntentService.eventMessage(this, message);
+    BeaconIntentService.eventMessage(message);
   }
 
   @Override
@@ -320,7 +316,7 @@ public class BeaconRecoSdkService extends Service implements RECOMonitoringListe
     // this.popupNotification("Outside of " + region.getUniqueIdentifier());
     // Write the code when the device is exit the region
 
-    BeaconIntentService.eventBeaconRegionExit(this, RECOUtil.toBeacon(region));
+    BeaconIntentService.eventBeaconRegionExit(RECOUtil.toBeacon(region));
 
     this.stopRangingWithRegion(region); // stop ranging because the device is outside of the region
     // from now
@@ -342,7 +338,7 @@ public class BeaconRecoSdkService extends Service implements RECOMonitoringListe
     for(RECOBeacon recoBeacon : beacons) {
       beaconList.add(RECOUtil.toBeacon(recoBeacon));
     }
-    BeaconIntentService.eventBeaconRegionsOn(this, beaconList);
+    BeaconIntentService.eventBeaconRegionsOn(beaconList);
   }
 
   @Override
