@@ -1,5 +1,9 @@
 package com.kit.developtest.utils;
 
+import android.text.method.ScrollingMovementMethod;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
@@ -33,4 +37,7 @@ public class ComponentUtil {
     return view.getText().toString();
   }
 
+  public static void setScrollable(TextView view) {
+      view.setMovementMethod(new ScrollingMovementMethod());
+  }
 }
