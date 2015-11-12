@@ -18,15 +18,14 @@ import android.view.View;
 
 import com.android.volley.RequestQueue;
 import com.kit.developtest.fragments.BeaconFragment;
+import com.kit.developtest.fragments.GoogleMapFragment;
 import com.kit.developtest.fragments.RestFulVolleyFragment;
 import com.kit.developtest.fragments.RestFulVolleyFragment.OnFragmentInteractionListener;
 import com.kit.developtest.fragments.thridparty.ButterKnifeFragment;
 import com.navercorp.volleyextensions.volleyer.Volleyer;
 import com.navercorp.volleyextensions.volleyer.factory.DefaultRequestQueueFactory;
 
-public class MainActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener, BeaconFragment
-    .OnFragmentInteractionListener, ButterKnifeFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener, BeaconFragment.OnFragmentInteractionListener, ButterKnifeFragment.OnFragmentInteractionListener, GoogleMapFragment.OnFragmentInteractionListener {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +38,12 @@ public class MainActivity extends AppCompatActivity
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show();
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
       }
     });
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawer.setDrawerListener(toggle);
     toggle.syncState();
 
@@ -102,13 +99,13 @@ public class MainActivity extends AppCompatActivity
     Fragment fragment = null;
     if (id == R.id.nav_rest_ful_volley) {
       // Handle the camera action
-      fragment = (Fragment) RestFulVolleyFragment.newInstance();
+      fragment = RestFulVolleyFragment.newInstance();
     } else if (id == R.id.nav_beacon_reco) {
-      fragment = (Fragment) BeaconFragment.newInstance();
+      fragment = BeaconFragment.newInstance();
     } else if (id == R.id.nav_butter_knife) {
-      fragment = (Fragment) ButterKnifeFragment.newInstance();
-    } else if (id == R.id.nav_manage) {
-
+      fragment = ButterKnifeFragment.newInstance();
+    } else if (id == R.id.nav_google_map) {
+      fragment = GoogleMapFragment.newInstance();
     } else if (id == R.id.nav_share) {
 
     } else if (id == R.id.nav_send) {

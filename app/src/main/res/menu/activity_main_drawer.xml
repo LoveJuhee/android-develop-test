@@ -4,20 +4,20 @@
   <group android:checkableBehavior="single">
     <item
         android:id="@+id/nav_rest_ful_volley"
-        android:icon="@android:drawable/ic_menu_camera"
+        android:icon="@android:drawable/ic_menu_set_as"
         android:title="RestFul (Volley)"/>
     <item
         android:id="@+id/nav_beacon_reco"
-        android:icon="@android:drawable/ic_menu_gallery"
+        android:icon="@android:drawable/ic_menu_share"
         android:title="Beacon (Reco)"/>
     <item
         android:id="@+id/nav_butter_knife"
         android:icon="@android:drawable/ic_menu_slideshow"
         android:title="ButterKnife"/>
     <item
-        android:id="@+id/nav_manage"
-        android:icon="@android:drawable/ic_menu_manage"
-        android:title="Tools"/>
+        android:id="@+id/nav_google_map"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="GoogleMaps"/>
   </group>
 
   <item android:title="Communicate">
