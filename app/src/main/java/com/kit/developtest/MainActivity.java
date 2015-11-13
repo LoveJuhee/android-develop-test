@@ -25,7 +25,12 @@ import com.kit.developtest.fragments.thridparty.ButterKnifeFragment;
 import com.navercorp.volleyextensions.volleyer.Volleyer;
 import com.navercorp.volleyextensions.volleyer.factory.DefaultRequestQueueFactory;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener, BeaconFragment.OnFragmentInteractionListener, ButterKnifeFragment.OnFragmentInteractionListener, GoogleMapFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener,
+    NavigationView.OnNavigationItemSelectedListener, BeaconFragment.OnFragmentInteractionListener,
+    ButterKnifeFragment.OnFragmentInteractionListener,
+    GoogleMapFragment.OnFragmentInteractionListener {
+
+  private static final String TAG = MainActivity.class.getSimpleName();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +43,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction(
+            "Action", null).show();
       }
     });
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                                                             R.string.navigation_drawer_open,
+                                                             R.string.navigation_drawer_close);
     drawer.setDrawerListener(toggle);
     toggle.syncState();
 
@@ -105,7 +113,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     } else if (id == R.id.nav_butter_knife) {
       fragment = ButterKnifeFragment.newInstance();
     } else if (id == R.id.nav_google_map) {
-      fragment = GoogleMapFragment.newInstance();
+      Fragment current = getFragmentManager().findFragmentByTag(TAG);
+      if (current instanceof GoogleMapFragment == false) {
+        fragment = GoogleMapFragment.newInstance();
+      }
     } else if (id == R.id.nav_share) {
 
     } else if (id == R.id.nav_send) {
@@ -114,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     if (fragment != null) {
       FragmentManager manager = getFragmentManager();
-      manager.beginTransaction().replace(R.id.flContent, fragment).commit();
+      manager.beginTransaction().replace(R.id.flContent, fragment, TAG).commit();
     } else {
 
     }
