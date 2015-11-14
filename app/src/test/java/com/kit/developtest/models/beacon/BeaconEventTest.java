@@ -53,7 +53,14 @@ public class BeaconEventTest {
   @Test
   public void testToString() throws Exception {
     Gson gson = new Gson();
-    System.out.println(String.format("beaconEvent1\n%s", gson.toJson(beaconEvent1)));
-    System.out.println(String.format("beaconEvent2\n%s", gson.toJson(beaconEvent2)));
+    String json1 = gson.toJson(beaconEvent1);
+    System.out.println(String.format("beaconEvent1\n%s", json1));
+    String json2 = gson.toJson(beaconEvent2);
+    System.out.println(String.format("beaconEvent2\n%s", json2));
+
+    BeaconEvent event1 = gson.fromJson(json1, BeaconEvent.class);
+    System.out.println(event1.print());
+    BeaconEvent event2 = gson.fromJson(json2, BeaconEvent.class);
+    System.out.println(event2.print());
   }
 }
