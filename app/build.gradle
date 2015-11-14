@@ -33,4 +33,9 @@ dependencies {
   compile 'com.google.android.gms:play-services-ads:8.3.0'
   compile 'com.google.android.gms:play-services-identity:8.3.0'
   compile 'com.google.android.gms:play-services-gcm:8.3.0'
+  compile 'com.nineoldandroids:library:2.4.0'
+  compile 'com.github.sd6352051.niftydialogeffects:niftydialogeffects:1.0.0'
+  compile 'com.flyco.dialog:FlycoDialog_Lib:1.1.0@aar'
+  compile 'com.flyco.animation:FlycoAnimation_Lib:1.0.0@aar'
+  compile 'com.nineoldandroids:library:2.4.0'
 }
