@@ -55,7 +55,8 @@ public class RestFulVolleyFragment extends Fragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_rest_ful_volley, container, false);
 
@@ -87,7 +88,8 @@ public class RestFulVolleyFragment extends Fragment {
     try {
       mListener = (OnFragmentInteractionListener) activity;
     } catch (ClassCastException e) {
-      throw new ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener");
+      throw new ClassCastException(
+          activity.toString() + " must implement OnFragmentInteractionListener");
     }
   }
 
@@ -117,6 +119,9 @@ public class RestFulVolleyFragment extends Fragment {
     Volleyer.volleyer().get(url).withListener(listener).withErrorListener(errorListener).execute();
   }
 
+  /**
+   * Volleyer Response Listener
+   */
   private Response.Listener<String> listener = new Response.Listener<String>() {
     @Override
     public void onResponse(String response) {
@@ -125,6 +130,9 @@ public class RestFulVolleyFragment extends Fragment {
     }
   };
 
+  /**
+   * Volleyer Error Listener
+   */
   private Response.ErrorListener errorListener = new Response.ErrorListener() {
     @Override
     public void onErrorResponse(VolleyError error) {
