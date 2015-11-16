@@ -210,13 +210,13 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     dialog.setOnBtnClickL(new OnBtnClickL() {
       @Override
       public void onBtnClick() {
-        ToastUtil.showShortToast(context, true, "left");
+        ToastUtil.showShortToast(context, "left", true);
         dialog.dismiss();
       }
     }, new OnBtnClickL() {
       @Override
       public void onBtnClick() {
-        ToastUtil.showShortToast(context, true, "right");
+        ToastUtil.showShortToast(context, "right", true);
         dialog.dismiss();
       }
     });

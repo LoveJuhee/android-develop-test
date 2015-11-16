@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
@@ -45,6 +46,7 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
   private static final String TAG = GoogleMapFragment.class.getSimpleName();
   private OnFragmentInteractionListener mListener;
 
+  MapFragment mapFragment;
   GoogleMap googleMap;
   Marker marker;
   LocationManager locationManager;
@@ -55,13 +57,13 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
     final int id = btn.getId();
     switch (id) {
       case R.id.btnMapStyle:
-        ToastUtil.showShortToast(context, true, btn.getText() + " Clicked.");
+        ToastUtil.showShortToast(context, btn.getText() + " Clicked.", true);
         break;
       case R.id.btnMarker:
-        ToastUtil.showShortToast(context, true, btn.getText() + " Clicked.");
+        ToastUtil.showShortToast(context, btn.getText() + " Clicked.", true);
         break;
       default:
-        ToastUtil.showShortToast(context, true, "Unknown Button(" + btn.getText() + ") Clicked.");
+        ToastUtil.showShortToast(context, "Unknown Button(" + btn.getText() + ") Clicked.", true);
         break;
     }
   }
@@ -95,14 +97,36 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
     View view = inflater.inflate(R.layout.fragment_google_map, container, false);
     try {
       ButterKnife.bind(this, view);
+      initializeMap();
+      /*
       // GoogleMap 설정.
       googleMap = getMapFragment().getMap();
+      */
       // 위치정보 관리자를 생성한다.
       locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
     } catch (Exception e) {
       e.printStackTrace();
     }
     return view;
+  }
+
+  private void initializeMap() {
+    try {
+      if (googleMap == null) {
+        FragmentManager myFragmentManager;
+        myFragmentManager = getFragmentManager();
+        MapFragment mySupportMapFragment = (MapFragment) myFragmentManager.findFragmentById(R.id.fmGoogleMaps);
+        googleMap = mySupportMapFragment.getMap();
+
+        if (googleMap == null) {
+          ToastUtil.showShortToast(getActivity().getApplicationContext(),
+                                   "Sorry! unable to create maps",
+                                   true);
+        }
+      }
+    } catch (Exception e) {
+      ToastUtil.showShortToast(getActivity().getApplicationContext(), e.toString(), true);
+    }
   }
 
   private MapFragment getMapFragment() {
@@ -119,7 +143,6 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
       fm = getChildFragmentManager();
     }
 
-    MapFragment mapFragment = null;
     try {
       mapFragment = (MapFragment) fm.findFragmentById(R.id.fmGoogleMaps);
       mapFragment.getMapAsync(this);
@@ -128,6 +151,18 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
     }
 
     return mapFragment;
+  }
+
+  @Override
+  public void onLowMemory() {
+    super.onLowMemory();
+    mapFragment.onLowMemory();
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    mapFragment.onDestroy();
   }
 
   @Override
@@ -168,6 +203,7 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
   @Override
   public void onDetach() {
     super.onDetach();
+    mapFragment.onDetach();
     mListener = null;
   }
 
@@ -176,6 +212,7 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
     super.onResume();
     try {
       resumeWork();
+      mapFragment.onResume();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -193,7 +230,7 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
     }
 
     Context context = getActivity().getApplicationContext();
-    ToastUtil.showShortToast(context, true, provider);
+    ToastUtil.showShortToast(context, provider, true);
 
     // 위치정보 취득 시작
     // --> 하드웨어이름, 갱신시간주기, 갱신거리주기(m), 이벤트핸들러
@@ -273,7 +310,7 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
   @Override
   public void onProviderDisabled(String arg0) {
     Context context = getActivity().getApplicationContext();
-    ToastUtil.showShortToast(context, true, "onProviderDisabled : " + arg0);
+    ToastUtil.showShortToast(context, "onProviderDisabled : " + arg0, true);
   }
 
   /**
@@ -282,7 +319,7 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
   @Override
   public void onProviderEnabled(String arg0) {
     Context context = getActivity().getApplicationContext();
-    ToastUtil.showShortToast(context, true, "onProviderEnabled : " + arg0);
+    ToastUtil.showShortToast(context, "onProviderEnabled : " + arg0, true);
   }
 
   /**
@@ -291,14 +328,13 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
   @Override
   public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
     Context context = getActivity().getApplicationContext();
-    ToastUtil.showShortToast(context, true, "onStatusChanged : " + arg0);
+    ToastUtil.showShortToast(context, "onStatusChanged : " + arg0, true);
   }
 
   @Override
   public void onMapReady(GoogleMap googleMap) {
     setMapPosition(37.494583, 127.029727);
   }
-
 
 
   /**

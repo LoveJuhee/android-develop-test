@@ -23,7 +23,7 @@ public class ToastUtil {
     return true;
   }
 
-  public static boolean showLongToast(Context context, boolean prevStop, String message) {
+  public static boolean showLongToast(Context context, String message, boolean prevStop) {
     if (prevStop) {
       if (sLastToast != null) {
         sLastToast.cancel();
@@ -35,7 +35,7 @@ public class ToastUtil {
     return true;
   }
 
-  public static boolean showShortToast(Context context, boolean prevStop, String message) {
+  public static boolean showShortToast(Context context, String message, boolean prevStop) {
     if (prevStop) {
       if (sLastToast != null) {
         sLastToast.cancel();
