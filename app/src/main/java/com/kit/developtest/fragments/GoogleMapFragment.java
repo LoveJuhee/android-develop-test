@@ -49,7 +49,6 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
   Marker marker;
   LocationManager locationManager;
 
-
   @OnClick({R.id.btnMapStyle, R.id.btnMarker})
   void btnOnClick(Button btn) {
     Context context = getActivity().getApplicationContext();
@@ -89,16 +88,20 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater,
+                           ViewGroup container,
+                           Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_google_map, container, false);
-    ButterKnife.bind(this, view);
-
-    // GoogleMap 설정.
-    googleMap = getMapFragment().getMap();
-
-    // 위치정보 관리자를 생성한다.
-    locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+    try {
+      ButterKnife.bind(this, view);
+      // GoogleMap 설정.
+      googleMap = getMapFragment().getMap();
+      // 위치정보 관리자를 생성한다.
+      locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     return view;
   }
 
@@ -116,16 +119,33 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
       fm = getChildFragmentManager();
     }
 
-    MapFragment mapFragment = (MapFragment) fm.findFragmentById(R.id.fmGoogleMaps);
-    mapFragment.getMapAsync(this);
+    MapFragment mapFragment = null;
+    try {
+      mapFragment = (MapFragment) fm.findFragmentById(R.id.fmGoogleMaps);
+      mapFragment.getMapAsync(this);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
     return mapFragment;
   }
 
   @Override
   public void onDestroyView() {
-    ButterKnife.unbind(this);
     super.onDestroyView();
+    ButterKnife.unbind(this);
+    Log.d(TAG, "onDestroyView()");
+    /*
+    try {
+      Fragment fragment = (getFragmentManager().findFragmentById(R.id.fmGoogleMaps));
+      FragmentTransaction ft = getActivity().getFragmentManager()
+                                            .beginTransaction();
+      ft.remove(fragment);
+      ft.commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    */
   }
 
   // TODO: Rename method, update argument and hook method into UI event
@@ -151,11 +171,18 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
     mListener = null;
   }
 
-  @SuppressWarnings("ResourceType")
   @Override
   public void onResume() {
     super.onResume();
+    try {
+      resumeWork();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
+  @SuppressWarnings("ResourceType")
+  private void resumeWork() {
     // 일단 GPS로 사용하도록 설정
     String provider = LocationManager.GPS_PROVIDER;
 
@@ -271,6 +298,7 @@ public class GoogleMapFragment extends Fragment implements LocationListener, OnM
   public void onMapReady(GoogleMap googleMap) {
     setMapPosition(37.494583, 127.029727);
   }
+
 
 
   /**

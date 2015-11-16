@@ -2,6 +2,7 @@ package com.kit.developtest;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.android.volley.RequestQueue;
 import com.flyco.animation.BaseAnimatorSet;
@@ -37,15 +37,18 @@ import com.navercorp.volleyextensions.volleyer.Volleyer;
 import com.navercorp.volleyextensions.volleyer.factory.DefaultRequestQueueFactory;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener,
-    NavigationView.OnNavigationItemSelectedListener, BeaconFragment.OnFragmentInteractionListener,
-    ButterKnifeFragment.OnFragmentInteractionListener,
-    GoogleMapFragment.OnFragmentInteractionListener,
-    NiftyDialogEffectsFragment.OnFragmentInteractionListener,
-    FlycoDialogFragment.OnFragmentInteractionListener {
+                                                               NavigationView.OnNavigationItemSelectedListener,
+                                                               BeaconFragment.OnFragmentInteractionListener,
+                                                               ButterKnifeFragment.OnFragmentInteractionListener,
+                                                               GoogleMapFragment.OnFragmentInteractionListener,
+                                                               NiftyDialogEffectsFragment.OnFragmentInteractionListener,
+                                                               FlycoDialogFragment.OnFragmentInteractionListener {
 
   private static final String TAG = MainActivity.class.getSimpleName();
+  NavigationView navigationView;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -53,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View view) {
+      @Override
+      public void onClick(View view) {
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show();
@@ -61,13 +65,15 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     });
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                                                             drawer,
+                                                             toolbar,
                                                              R.string.navigation_drawer_open,
                                                              R.string.navigation_drawer_close);
     drawer.setDrawerListener(toggle);
     toggle.syncState();
 
-    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+    navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
     /**
@@ -75,10 +81,14 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
      */
     RequestQueue rq = DefaultRequestQueueFactory.create(this);
     rq.start();
-    Volleyer.volleyer(rq).settings().setAsDefault().done();
+    Volleyer.volleyer(rq)
+            .settings()
+            .setAsDefault()
+            .done();
   }
 
-  @Override public void onBackPressed() {
+  @Override
+  public void onBackPressed() {
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
@@ -87,13 +97,15 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     }
   }
 
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
     // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.main, menu);
     return true;
   }
 
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
     // Handle action bar item clicks here. The action bar will
     // automatically handle clicks on the Home/Up button, so long
     // as you specify a parent activity in AndroidManifest.xml.
@@ -107,48 +119,81 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     return super.onOptionsItemSelected(item);
   }
 
-  @SuppressWarnings("StatementWithEmptyBody") @Override
+
+  Fragment currentFragment;
+
+  @SuppressWarnings("StatementWithEmptyBody")
+  @Override
   public boolean onNavigationItemSelected(MenuItem item) {
     // Handle navigation view item clicks here.
     int id = item.getItemId();
 
+    // 1. 해당 프레그먼트가 있는지 조회한다.
+
+    // 2. 있다면 pop 처리하여 대응
+
+    // 3. 없다면
+    // 3.1. 생성하고
+    // 3.2. 기존 프래그먼트를 hide 처리하고
+    // 3.3. 추가한다.
+
+    Class fragmentName = null; // class 정의
     Fragment fragment = null;
+
     if (id == R.id.nav_rest_ful_volley) {
-      // Handle the camera action
-      fragment = RestFulVolleyFragment.newInstance();
+      fragmentName = RestFulVolleyFragment.class;
     } else if (id == R.id.nav_beacon_reco) {
-      fragment = BeaconFragment.newInstance();
+      fragmentName = BeaconFragment.class;
     } else if (id == R.id.nav_butter_knife) {
-      fragment = ButterKnifeFragment.newInstance();
+      fragmentName = ButterKnifeFragment.class;
     } else if (id == R.id.nav_google_map) {
-      Fragment current = getFragmentManager().findFragmentByTag(TAG);
-      if (current instanceof GoogleMapFragment == false) {
-        fragment = GoogleMapFragment.newInstance();
-      }
+      fragmentName = GoogleMapFragment.class;
     } else if (id == R.id.nav_nifty_dialog_effects) {
-      onNiftyDialogTest();
-      fragment = NiftyDialogEffectsFragment.newInstance();
+      fragmentName = NiftyDialogEffectsFragment.class;
     } else if (id == R.id.nav_flyco_dialog) {
-      onFlycoDialogTest();
-      fragment = FlycoDialogFragment.newInstance();
+      fragmentName = FlycoDialogFragment.class;
     } else if (id == R.id.nav_share) {
 
     } else if (id == R.id.nav_send) {
 
     }
 
-    if (fragment != null) {
+    if (fragmentName != null) {
       FragmentManager manager = getFragmentManager();
-      manager.beginTransaction().replace(R.id.content, fragment, TAG).commit();
-    } else {
-
+      String tag = fragmentName.getSimpleName();
+      Fragment instance = manager.findFragmentByTag(fragmentName.getName());
+      if (instance == null) {
+        //
+        try {
+          instance = (Fragment) fragmentName.newInstance();
+          FragmentTransaction transaction = manager.beginTransaction();
+          if (currentFragment != null) {
+            transaction.hide(currentFragment);
+          }
+          transaction.add(R.id.content, instance, tag);
+          transaction.commit();
+        } catch (InstantiationException e) {
+          e.printStackTrace();
+        } catch (IllegalAccessException e) {
+          e.printStackTrace();
+        }
+      } else {
+        // 다시 보이기.
+        FragmentTransaction transaction = manager.beginTransaction();
+        if (currentFragment != null) {
+          transaction.hide(currentFragment);
+        }
+        transaction.show(instance);
+        transaction.commit();
+      }
+      currentFragment = instance;
     }
+
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
   }
-
 
   BaseAnimatorSet bas_in = new FlipVerticalSwingEnter();
   BaseAnimatorSet bas_out = new FadeExit();
@@ -157,18 +202,20 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
   private void onFlycoDialogTest() {
     context = this;
     final NormalDialog dialog = new NormalDialog(context);
-    dialog.content("let's go?")//
-        .showAnim(bas_in)//
-        .dismissAnim(bas_out)//
-        .show();
+    dialog.content("let's go?")
+          .showAnim(bas_in)
+          .dismissAnim(bas_out)
+          .show();
 
     dialog.setOnBtnClickL(new OnBtnClickL() {
-      @Override public void onBtnClick() {
+      @Override
+      public void onBtnClick() {
         ToastUtil.showShortToast(context, true, "left");
         dialog.dismiss();
       }
     }, new OnBtnClickL() {
-      @Override public void onBtnClick() {
+      @Override
+      public void onBtnClick() {
         ToastUtil.showShortToast(context, true, "right");
         dialog.dismiss();
       }
@@ -179,10 +226,9 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     context = this;
     NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(context);
 
-    dialogBuilder
-        .withTitle("Modal Dialog")
-        .withMessage("This is a modal Dialog.")
-        .show();
+    dialogBuilder.withTitle("Modal Dialog")
+                 .withMessage("This is a modal Dialog.")
+                 .show();
   }
 
   public void onFragmentInteraction(Uri uri) {

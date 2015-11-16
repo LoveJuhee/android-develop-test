@@ -40,7 +40,8 @@ public class ButterKnifeFragment extends Fragment {
   @Bind(R.id.btn3) Button btn3;
   @Bind(R.id.tvResponse) TextView tvResponse;
 
-  @OnClick({R.id.btn1, R.id.btn2, R.id.btn3}) void btnOnClick(Button btn) {
+  @OnClick({R.id.btn1, R.id.btn2, R.id.btn3})
+  void btnOnClick(Button btn) {
     final int id = btn.getId();
     String message = String.format("btnOnClick: %s (%d)", btn.getText().toString(), id);
     tvResponse.append(message);
@@ -71,12 +72,14 @@ public class ButterKnifeFragment extends Fragment {
     // Required empty public constructor
   }
 
-  @Override public void onCreate(Bundle savedInstanceState) {
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
   }
 
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                     Bundle savedInstanceState) {
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_butter_knife, container, false);
     ButterKnife.bind(this, view);
@@ -84,7 +87,8 @@ public class ButterKnifeFragment extends Fragment {
     return view;
   }
 
-  @Override public void onDestroyView() {
+  @Override
+  public void onDestroyView() {
     ButterKnife.unbind(this);
     super.onDestroyView();
   }
@@ -98,7 +102,8 @@ public class ButterKnifeFragment extends Fragment {
     }
   }
 
-  @Override public void onAttach(Activity activity) {
+  @Override
+  public void onAttach(Activity activity) {
     super.onAttach(activity);
     try {
       mListener = (OnFragmentInteractionListener) activity;
@@ -108,7 +113,8 @@ public class ButterKnifeFragment extends Fragment {
     }
   }
 
-  @Override public void onDetach() {
+  @Override
+  public void onDetach() {
     super.onDetach();
     mListener = null;
   }
