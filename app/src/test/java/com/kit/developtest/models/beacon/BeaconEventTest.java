@@ -2,8 +2,6 @@ package com.kit.developtest.models.beacon;
 
 import com.google.gson.Gson;
 
-import com.kit.developtest.models.event.EventType;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,8 +14,11 @@ public class BeaconEventTest {
 
   @Before
   public void setUp() throws Exception {
-    beaconEvent1 = new BeaconEvent(BeaconEventTest.class, EventType.info, "message1");
-    beaconEvent2 = new BeaconEvent(BeaconEventTest.class, EventType.error, "message2", new Beacon(BeaconTest.UUID));
+    beaconEvent1 = new BeaconEvent(BeaconEventTest.class, BeaconEventType.info, "message1");
+    beaconEvent2 = new BeaconEvent(BeaconEventTest.class,
+                                   BeaconEventType.exit,
+                                   "message2",
+                                   new Beacon(BeaconTest.UUID));
   }
 
   @Test
@@ -42,7 +43,10 @@ public class BeaconEventTest {
 
   @Test
   public void testGetType() throws Exception {
-
+    BeaconEventType type1 = beaconEvent1.getType();
+    System.out.println(String.format("beaconEvent1\n%s", type1.toString()));
+    BeaconEventType type2 = beaconEvent2.getType();
+    System.out.println(String.format("beaconEvent2\n%s", type2.toString()));
   }
 
   @Test

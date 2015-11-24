@@ -13,23 +13,23 @@ public abstract class AbstractEvent {
   private static final Gson gson = new Gson();
 
   private String sender = "EMPTY";
-  private EventType type = EventType.none;
+  private Enum type = EventType.none;
   private String message = "";
   private Object data = null;
 
-  public AbstractEvent(Class sender, EventType type, String message) {
+  public AbstractEvent(Class sender, Enum type, String message) {
     this(sender.getSimpleName(), type, message, null);
   }
 
-  public AbstractEvent(String sender, EventType type, String message) {
+  public AbstractEvent(String sender, Enum type, String message) {
     this(sender, type, message, null);
   }
 
-  public AbstractEvent(Class sender, EventType type, String message, Object data) {
+  public AbstractEvent(Class sender, Enum type, String message, Object data) {
     this(sender.getSimpleName(), type, message, data);
   }
 
-  public AbstractEvent(String sender, EventType type, String message, Object data) {
+  public AbstractEvent(String sender, Enum type, String message, Object data) {
     setSender(sender);
     setType(type);
     setMessage(message);
@@ -63,11 +63,11 @@ public abstract class AbstractEvent {
     this.message = message;
   }
 
-  public EventType getType() {
+  public Enum getType() {
     return type;
   }
 
-  public void setType(EventType type) {
+  public void setType(Enum type) {
     this.type = type;
   }
 
